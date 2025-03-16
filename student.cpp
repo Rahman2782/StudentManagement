@@ -39,23 +39,26 @@ Student::Student(Student &&src) noexcept
 }
 
 //move assignment operator
+    //no reason to set everything to null when nothing is assigned first
 Student& Student::operator=(Student &&src) {
     if(this == &src) {
         return *this;
     }
-    //src.m_gpa = 0.0;
-    //src.m_name = "";
-    //src.m_studentID = 0;
-    //src.m_program = "";
+    
     m_gpa = std::move(src.m_gpa);
     m_studentID = std::move(src.m_studentID);
     m_name = std::move(src.m_name);
     m_program = std::move(src.m_program);
+    
+    src.m_gpa = 0.0;
+    src.m_name = "";
+    src.m_studentID = 0;
+    src.m_program = "";
 
     return *this;
 }
 
 //destructor
-Student::~Student() {}
+Student::~Student() { numOfStudents--; }
 
 
